@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeSync 3D - Organizador de Rotinas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Objetos 3D Flutuantes de Fundo -->
+    <div class="bg-container">
+        <div class="floating-shape square shape1"></div>
+        <div class="floating-shape circle shape2"></div>
+        <div class="floating-shape square shape3"></div>
+        <div class="floating-shape circle shape4"></div>
+        <div class="floating-shape square shape5"></div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <header>
+            <h1>LifeSync 3D</h1>
+            <p>Gerencie suas metas e rotinas diárias com alta performance</p>
+        </header>
+
+        <main class="grid-cards">
+            <!-- Card 1: Estudo -->
+            <div class="card" onclick="openModal('estudo')">
+                <div class="card-icon">📚</div>
+                <h3>Estudos</h3>
+                <p>Foco, leituras e aperfeiçoamento constante.</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <!-- Card 2: Trabalho -->
+            <div class="card" onclick="openModal('trabalho')">
+                <div class="card-icon">💼</div>
+                <h3>Trabalho</h3>
+                <p>Metas profissionais, projetos e demandas do dia.</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <!-- Card 3: Academia -->
+            <div class="card" onclick="openModal('academia')">
+                <div class="card-icon">🏋️‍♂️</div>
+                <h3>Academia</h3>
+                <p>Treinos de força, cardio e consistência física.</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <!-- Card 4: Hobby -->
+            <div class="card" onclick="openModal('hobby')">
+                <div class="card-icon">🎨</div>
+                <h3>Hobby</h3>
+                <p>Momentos de lazer, criatividade e descanso mental.</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <!-- Card 5: Vôlei -->
+            <div class="card" onclick="openModal('volei')">
+                <div class="card-icon">🏐</div>
+                <h3>Vôlei</h3>
+                <p>Treino em equipe, agilidade e partidas semanais.</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <!-- Card 6: Fazer Unhas -->
+            <div class="card" onclick="openModal('unhas')">
+                <div class="card-icon">💅</div>
+                <h3>Fazer Unhas</h3>
+                <p>Auto-cuidado, manutenção e estética pessoal.</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Estrutura do Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOutsideClick(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <span id="modalIcon" style="font-size: 2.5rem;"></span>
+                <h2 id="modalTitle">Título da Rotina</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription">Descrição detalhada...</p>
+                <ul id="modalList">
+                    <!-- Itens inseridos via JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Integrado -->
+    <script>
+        // Dados de cada rotina
+        const rotinasData = {
+            estudo: {
+                title: "Rotina de Estudos",
+                icon: "📚",
+                description: "Organização diária para aprendizado focado.",
+                items: [
+                    "2 horas de leitura teórica (Técnica Pomodoro)",
+                    "Resolução de exercícios práticos",
+                    "Revisão de anotações da semana",
+                    "Curso de especialização online"
+                ]
+            },
+            trabalho: {
+                title: "Rotina de Trabalho",
+                icon: "💼",
+                description: "Planejamento e execução de tarefas profissionais.",
+                items: [
+                    "Organizar e-mails e prioridades do dia",
+                    "Reunião de alinhamento / Daily",
+                    "Foco em blocos de tarefas complexas",
+                    "Atualização de relatórios e entregas"
+                ]
+            },
+            academia: {
+                title: "Treino na Academia",
+                icon: "🏋️‍♂️",
+                description: "Manutenção da saúde física e hipertrofia.",
+                items: [
+                    "Aquecimento e mobilidade (10 min)",
+                    "Treino de musculação da ficha",
+                    "Cardio pós-treino (20 min)",
+                    "Hidratação constante (mín. 2L de água)"
+                ]
+            },
+            hobby: {
+                title: "Tempo de Hobby",
+                icon: "🎨",
+                description: "Desconexão do trabalho e foco no bem-estar.",
+                items: [
+                    "Desenho, pintura ou leitura por prazer",
+                    "Ouvir novas músicas / Podcasts",
+                    "Cozinhar algo diferente",
+                    "Zero telas por pelo menos 30 minutos"
+                ]
+            },
+            volei: {
+                title: "Treino de Vôlei",
+                icon: "🏐",
+                description: "Prática esportiva coletiva e condicionamento.",
+                items: [
+                    "Alongamento dinâmico pré-jogo",
+                    "Treino de passe e levantamento",
+                    "Partida amistosa / Recreativo",
+                    "Alongamento de recuperação pós-jogo"
+                ]
+            },
+            unhas: {
+                title: "Cuidado com as Unhas",
+                icon: "💅",
+                description: "Sessão de autocuidado e beleza.",
+                items: [
+                    "Remover esmalte antigo e lixar",
+                    "Hidratação profunda das cutículas",
+                    "Aplicação de base fortalecedora",
+                    "Esmaltação e finalização com Top Coat"
+                ]
+            }
+        };
+
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalList = document.getElementById('modalList');
+
+        // Função para abrir o modal com dados específicos
+        function openModal(key) {
+            const data = rotinasData[key];
+            if (!data) return;
+
+            modalIcon.textContent = data.icon;
+            modalTitle.textContent = data.title;
+            modalDescription.textContent = data.description;
+            
+            // Limpa a lista anterior
+            modalList.innerHTML = '';
+            
+            // Adiciona novos itens
+            data.items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                modalList.appendChild(li);
+            });
+
+            modalOverlay.classList.add('active');
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        // Fechar se clicar fora do modal
+        function closeModalOnOutsideClick(event) {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

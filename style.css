@@ -1,0 +1,264 @@
+/* ==========================================
+   CONFIGURAÇÕES GERAIS E RESET
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #050505;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+/* ==========================================
+   FUNDO 3D COM OBJETOS FLUTUANTES
+   ========================================== */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    perspective: 1000px;
+}
+
+.floating-shape {
+    position: absolute;
+    background: linear-gradient(135deg, #800020 0%, #ff4d4d 100%);
+    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+    animation: float3D 18s infinite ease-in-out alternate;
+    opacity: 0.6;
+    transform-style: preserve-3d;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.square {
+    border-radius: 16px;
+}
+
+/* Posições e tamanhos variados para os objetos */
+.shape1 { width: 120px; height: 120px; top: 10%; left: 8%; animation-duration: 14s; }
+.shape2 { width: 80px; height: 80px; top: 65%; left: 85%; animation-duration: 18s; animation-delay: -3s; }
+.shape3 { width: 150px; height: 150px; top: 75%; left: 15%; animation-duration: 22s; animation-delay: -5s; }
+.shape4 { width: 90px; height: 90px; top: 20%; left: 80%; animation-duration: 16s; animation-delay: -2s; }
+.shape5 { width: 60px; height: 60px; top: 45%; left: 50%; animation-duration: 12s; animation-delay: -7s; }
+
+@keyframes float3D {
+    0% {
+        transform: translateZ(-200px) translateY(0) rotateX(0deg) rotateY(0deg);
+    }
+    50% {
+        transform: translateZ(100px) translateY(-50px) rotateX(180deg) rotateY(90deg);
+    }
+    100% {
+        transform: translateZ(-100px) translateY(30px) rotateX(360deg) rotateY(180deg);
+    }
+}
+
+/* ==========================================
+   ESTRUTURA PRINCIPAL
+   ========================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #ffffff, #ff4d4d, #800020);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.8);
+}
+
+header p {
+    color: #a0a0a0;
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   GRID DE CARDS (3D GLASSMORPHISM)
+   ========================================== */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    perspective: 1000px;
+}
+
+.card {
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #800020, #ff4d4d);
+}
+
+.card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+    box-shadow: 0 20px 40px rgba(128, 0, 32, 0.4), 
+                0 0 20px rgba(255, 77, 77, 0.2);
+    border-color: rgba(255, 77, 77, 0.6);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.card p {
+    color: #b0b0b0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.btn-detalhes {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #800020, #ff4d4d);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .btn-detalhes {
+    opacity: 0.9;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4);
+}
+
+/* ==========================================
+   MODAL 3D
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: #121212;
+    border: 1px solid #ff4d4d;
+    border-radius: 24px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(128, 0, 32, 0.5);
+    transform: scale(0.7) rotateX(-15deg);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1) rotateX(0deg);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff4d4d;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.modal-body ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.modal-body li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-body li::before {
+    content: '➔';
+    color: #ff4d4d;
+}
